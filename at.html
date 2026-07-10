@@ -193,9 +193,19 @@
                         
                         <!-- Profile Card container -->
                         <div class="relative w-72 h-80 bg-navy-800 border border-navy-700 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-6 text-center">
-                            <!-- SVG Placeholder Developer Icon to avoid broken external links -->
-                            <div class="w-28 h-28 rounded-full bg-navy-900/80 border border-navy-700 flex items-center justify-center mb-6">
-                                <i data-lucide="user" class="w-14 h-14 text-accent-blue"></i>
+                             <!-- 프로필 이미지 영역 (실제 사진 경로로 즉시 변경 가능) -->
+                            <div class="w-28 h-28 rounded-full bg-navy-900/80 border border-navy-700 overflow-hidden flex items-center justify-center mb-6 relative group/img">
+                                <!-- TODO: 실제 본인 사진 파일 경로(예: ./images/my_photo.png)를 아래 src에 대입해 보세요. -->
+                                <img id="profile-image" 
+                                     src="me.JPG" 
+                                     alt="김동준 프로필 사진" 
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-110"
+                                     onerror="this.style.display='none'; document.getElementById('profile-icon-fallback').classList.remove('hidden');" />
+                                
+                                <!-- 이미지 경로가 잘못되었거나 로딩 실패 시 나타나는 기본 아이콘 안전 백업 -->
+                                <div id="profile-icon-fallback" class="hidden w-full h-full flex items-center justify-center bg-navy-900">
+                                    <i data-lucide="user" class="w-14 h-14 text-accent-blue"></i>
+                                </div>
                             </div>
                             <h3 class="text-xl font-bold text-white mb-1">김동준</h3>
                             <p class="text-accent-blue text-sm font-mono mb-4">Core Game Programmer</p>
@@ -629,7 +639,18 @@
                 <!-- Mattermost Copy Block -->
                 <div class="bg-navy-900 border border-navy-800 rounded-xl p-5 flex flex-col justify-between items-center group">
                     <div class="w-10 h-10 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-3">
-                        <i data-lucide="message-square" class="w-5 h-5 text-accent-cyan"></i>
+
+                                <!-- 저장하신 매터모스트 이미지 파일의 경로 및 파일명을 src에 입력해 주세요 (예: images/mattermost-icon.png) -->
+                        <img id="mattermost-icon-img" 
+                             src="images.jpg" 
+                             alt="Mattermost" 
+                             class="w-5 h-5 object-contain"
+                             onerror="this.style.display='none'; document.getElementById('mattermost-icon-fallback').classList.remove('hidden');" />
+                        
+                        <!-- 이미지 로드에 실패할 경우 노출되는 대체용 기본 아이콘 -->
+                        <div id="mattermost-icon-fallback" class="hidden">
+                            <i data-lucide="message-square" class="w-5 h-5 text-accent-cyan"></i>
+                        </div>
                     </div>
                     <span class="text-xs text-gray-500 font-mono mb-1">Mattermost ID</span>
                     <span id="discord-text" class="text-sm font-semibold text-white mb-4">@jkfdgd1114</span>
