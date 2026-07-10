@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김동준 | Game Developer Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#0B0F19', // 깊은 우주/기반 배경색
+                            900: '#111827', // 기본 배경색
+                            800: '#1F2937', // 카드 및 요소 배경
+                            700: '#374151', // 보더 및 구분선
+                        },
+                        accent: {
+                            blue: '#3B82F6',   // 신뢰를 주는 포인트 블루
+                            cyan: '#06B6D4',   // 시스템적 느낌의 시안
+                            emerald: '#10B981',// 안전/완료 상태의 그린
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #0B0F19;
+            color: #F3F4F6;
+        }
+        /* 미세 모눈 격자 배경 (Blueprint/Systemic Theme) */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* 스무스 스크롤 및 스크롤바 디자인 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-gray-100 overflow-x-hidden">
+
+    <!-- GNB (Global Navigation Bar) -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-navy-950/80 backdrop-blur-md border-b border-navy-800 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#hero" class="flex items-center gap-2 font-bold text-lg tracking-tight hover:opacity-90 transition">
+                <span class="text-accent-blue font-mono">&lt;</span>
+                <span>KIM DONG JUN</span>
+                <span class="text-accent-blue font-mono">/&gt;</span>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-accent-blue transition duration-200">소개</a>
+                <a href="#strengths" class="hover:text-accent-blue transition duration-200">핵심 역량</a>
+                <a href="#problem-solver" class="hover:text-accent-blue transition duration-200">해결력 시뮬레이터</a>
+                <a href="#projects" class="hover:text-accent-blue transition duration-200">프로젝트 & 협업</a>
+                <a href="#growth" class="hover:text-accent-blue transition duration-200">성장 다짐</a>
+            </div>
+
+            <!-- Action Button -->
+            <div class="hidden md:block">
+                <a href="#contact" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-accent-blue border border-accent-blue/30 rounded-lg hover:bg-accent-blue/10 transition-all duration-300">
+                    동료로 영입하기
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-navy-800 focus:outline-none" aria-label="메뉴 열기">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 bg-navy-900 border-b border-navy-800">
+            <div class="flex flex-col gap-3 py-2 text-sm font-medium text-gray-300">
+                <a href="#about" class="px-3 py-2 rounded-md hover:bg-navy-800 hover:text-accent-blue" onclick="toggleMobileMenu()">소개</a>
+                <a href="#strengths" class="px-3 py-2 rounded-md hover:bg-navy-800 hover:text-accent-blue" onclick="toggleMobileMenu()">핵심 역량</a>
+                <a href="#problem-solver" class="px-3 py-2 rounded-md hover:bg-navy-800 hover:text-accent-blue" onclick="toggleMobileMenu()">해결력 시뮬레이터</a>
+                <a href="#projects" class="px-3 py-2 rounded-md hover:bg-navy-800 hover:text-accent-blue" onclick="toggleMobileMenu()">프로젝트 & 협업</a>
+                <a href="#growth" class="px-3 py-2 rounded-md hover:bg-navy-800 hover:text-accent-blue" onclick="toggleMobileMenu()">성장 다짐</a>
+                <a href="#contact" class="mt-2 block w-full text-center px-4 py-2.5 bg-accent-blue text-white rounded-lg font-semibold hover:bg-blue-600 transition" onclick="toggleMobileMenu()">동료로 영입하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (인트로) -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-16 bg-grid overflow-hidden">
+        <!-- Background Lighting Efffects -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center z-10">
+            <!-- Small Status Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-navy-800 border border-navy-700 rounded-full text-xs text-accent-blue font-mono mb-6">
+                <span class="flex h-2.5 w-2.5 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-blue"></span>
+                </span>
+                Active & Looking for Team
+            </div>
+
+            <!-- Main Catchphrase -->
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight sm:leading-snug mb-6">
+                수많은 플레이어가 뛰어놀 거대한 세계,<br class="hidden sm:inline" />
+                그 <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan">견고한 한 축</span>을 설계하는 개발자<br />
+                <span class="text-white"><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan">김동준<span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan"></span>
+                <span class="text-white">입니다.</span>
+            </h1>
+
+            <!-- Subtext: Target audience focus (trust and reliability) -->
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                화려함에 매몰되기보다 시스템의 안전성과 무결함을 우선합니다.<br />
+                정교하게 맞물리는 톱니바퀴처럼, 팀의 프로젝트를 든든하게 받치는 뼈대를 설계하겠습니다.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-accent-blue hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300 flex items-center justify-center gap-2">
+                    김동준 알아보기
+                    <i data-lucide="arrow-down-right" class="w-4.5 h-4.5"></i>
+                </a>
+                <a href="#problem-solver" class="w-full sm:w-auto px-8 py-4 bg-navy-800 hover:bg-navy-700 border border-navy-700 hover:border-navy-600 text-gray-300 hover:text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                    <i data-lucide="terminal" class="w-4.5 h-4.5 text-accent-cyan"></i>
+                    역량 시뮬레이터 실행
+                </a>
+            </div>
+
+            <!-- Micro Metrics/Status bar (Developer Concept) -->
+            <div class="mt-16 pt-8 border-t border-navy-800/60 max-w-xl mx-auto grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <div class="text-sm font-mono text-gray-500">Core Engine</div>
+                    <div class="text-sm font-semibold text-gray-300 mt-1">C++ / Unity</div>
+                </div>
+                <div class="border-x border-navy-800/60">
+                    <div class="text-sm font-mono text-gray-500">Mentality</div>
+                    <div class="text-sm font-semibold text-gray-300 mt-1">#집요함 #분석적</div>
+                </div>
+                <div>
+                    <div class="text-sm font-mono text-gray-500">Main Focus</div>
+                    <div class="text-sm font-semibold text-gray-300 mt-1">System Architecture</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile & Philosophy Section (개발 철학 및 스토리텔링) -->
+    <section id="about" class="py-24 border-t border-navy-850 bg-navy-900/40 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center md:text-left mb-12">
+                <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// INTRODUCTION</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">동료들과 견고함을 빚어내는 설계자</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <!-- Profile Image & Quick Specs (4 Columns) -->
+                <div class="md:col-span-5 flex flex-col items-center">
+                    <div class="relative group">
+                        <!-- Neon backdrop frame -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-accent-blue to-accent-cyan rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        
+                        <!-- Profile Card container -->
+                        <div class="relative w-72 h-80 bg-navy-800 border border-navy-700 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-6 text-center">
+                            <!-- SVG Placeholder Developer Icon to avoid broken external links -->
+                            <div class="w-28 h-28 rounded-full bg-navy-900/80 border border-navy-700 flex items-center justify-center mb-6">
+                                <i data-lucide="user" class="w-14 h-14 text-accent-blue"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-1">김동준</h3>
+                            <p class="text-accent-blue text-sm font-mono mb-4">Core Game Programmer</p>
+                            
+                            <!-- Small tag row -->
+                            <div class="flex flex-wrap gap-2 justify-center">
+                                <span class="text-[11px] bg-navy-900 px-2.5 py-1 rounded text-gray-400 border border-navy-700/50">#신뢰감</span>
+                                <span class="text-[11px] bg-navy-900 px-2.5 py-1 rounded text-gray-400 border border-navy-700/50">#협업중심</span>
+                                <span class="text-[11px] bg-navy-900 px-2.5 py-1 rounded text-gray-400 border border-navy-700/50">#집요한_디버거</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Storytelling Paragraphs (7 Columns) -->
+                <div class="md:col-span-7 space-y-6 text-gray-300 text-sm sm:text-base leading-relaxed">
+                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl">
+                        <h4 class="font-bold text-white text-lg mb-3 flex items-center gap-2">
+                            <i data-lucide="heart" class="w-5 h-5 text-accent-blue"></i>
+                            협업을 위해 코드를 정돈합니다.
+                        </h4>
+                        <p>
+                            제가 생각하는 게임 개발은 혼자서 세우는 모래성이 아닙니다. 기획자, 아티스트, 그리고 동료 개발자들이 함께 입주하여 더 큰 세상으로 확장해나가는 거대한 아키텍처입니다. 따라서 한 명의 천재적인 개발자가 쓰는 난해한 코드보다, <strong>'모두가 한눈에 파악하고 확장할 수 있는 명확한 코드'</strong>가 팀에 더 큰 승리를 가져다준다고 믿습니다.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl">
+                        <h4 class="font-bold text-white text-lg mb-3 flex items-center gap-2">
+                            <i data-lucide="refresh-cw" class="w-5 h-5 text-accent-cyan"></i>
+                            지속 가능한 성장을 위해 기록합니다.
+                        </h4>
+                        <p>
+                            아무리 작은 프로젝트라도 직면한 기술적 한계와 비효율적인 구조를 끊임없이 분석합니다. 문제를 맞닥뜨릴 때마다 단순 해결에 그치지 않고 왜 그런 문제가 발생했는지 로그를 집요하게 쫓고 리팩토링 포인트를 발굴하여 기록으로 남깁니다. 이러한 꼼꼼함은 함께 일하는 동료들에게 안정감 있는 프로젝트 파트너로서 신뢰를 줍니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Strengths Section (강점 카드) -->
+    <section id="strengths" class="py-24 bg-navy-950 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// CORE VALUES</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-white">팀이 가장 필요로 하는 무기</h2>
+                <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto mt-2">
+                    단순히 기능을 만드는 것을 넘어, 프로젝트의 생명력을 지속시키기 위한 3가지 강점입니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Strength 1 -->
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-accent-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-blue/20 transition-all">
+                            <i data-lucide="brain" class="w-6 h-6 text-accent-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">01. 분석적 문제 해결력</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            버그나 병목현상을 마주하면 직관이나 임시방편에 기대지 않습니다. 시스템의 호출 스택과 리소스 로드 양상을 정확히 추적하여 문제의 본질을 해결합니다.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-navy-800/80 text-xs text-accent-blue font-mono">
+                        #Debugger #RootCauseAnalysis
+                    </div>
+                </div>
+
+                <!-- Strength 2 -->
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-accent-cyan/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-all">
+                            <i data-lucide="target" class="w-6 h-6 text-accent-cyan"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">02. 집요한 집중력</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            코드의 사소한 누수나 비효율적인 연산도 쉽게 타협하지 않습니다. 플레이어에게 완벽한 부드러움을 선사할 수 있을 때까지 집요하게 물고 늘어집니다.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-navy-800/80 text-xs text-accent-cyan font-mono">
+                        #Optimization #NoCompromise
+                    </div>
+                </div>
+
+                <!-- Strength 3 -->
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-accent-emerald/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-emerald/20 transition-all">
+                            <i data-lucide="zap" class="w-6 h-6 text-accent-emerald"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">03. 확실한 동기부여와 열정</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            게임이라는 매체가 가진 영향력을 신뢰합니다. 내가 개발한 코드가 사람들에게 깊은 경험을 선사한다는 확실한 동기부여를 안고 달립니다.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-navy-800/80 text-xs text-accent-emerald font-mono">
+                        #ProductOwnership #Energy
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Section: Problem Solver Console (김동준 디버깅 시뮬레이터) -->
+    <section id="problem-solver" class="py-24 bg-navy-900/50 border-y border-navy-850">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// INTERACTIVE CONSOLE</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">김동준의 문제 해결방식 시뮬레이터</h2>
+                <p class="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
+                    실제 개발 및 협업 중 발생할 수 있는 여러 상황 속에서 김동준 개발자가 어떻게 문제를 진단하고 해결해 나가는지 인터랙티브하게 확인해 보세요.
+                </p>
+            </div>
+
+            <!-- Simulator Console Window -->
+            <div class="bg-navy-950 rounded-2xl border border-navy-800 shadow-2xl overflow-hidden font-mono text-sm">
+                <!-- Header of the Console -->
+                <div class="bg-navy-900/80 px-4 py-3 flex items-center justify-between border-b border-navy-800">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                        <span class="ml-2 text-xs text-gray-500 font-semibold">DONGJUN-SOLVER v1.4.2</span>
+                    </div>
+                    <div class="text-xs text-accent-blue">SYSTEM: ONLINE</div>
+                </div>
+
+                <!-- Main Grid layout for console options & visual output -->
+                <div class="grid grid-cols-1 md:grid-cols-12 min-h-[350px]">
+                    <!-- Control buttons (Left col) -->
+                    <div class="md:col-span-5 p-4 bg-navy-900/40 border-r border-b md:border-b-0 border-navy-800 flex flex-col gap-2">
+                        <div class="text-xs text-gray-500 uppercase tracking-widest px-2 mb-2 font-semibold">상황 선택 (SELECT SCENARIO)</div>
+                        
+                        <button onclick="selectScenario('bug')" id="btn-scenario-bug" class="scenario-btn w-full text-left p-3 rounded-xl bg-accent-blue/10 border border-accent-blue text-white flex items-center gap-3 transition-all duration-200">
+                            <i data-lucide="shield-alert" class="w-5 h-5 text-accent-blue"></i>
+                            <div class="text-xs">
+                                <div class="font-bold">원인 모를 크래시 디버깅</div>
+                                <span class="text-gray-400">#분석적 #집요함</span>
+                            </div>
+                        </button>
+
+                        <button onclick="selectScenario('collab')" id="btn-scenario-collab" class="scenario-btn w-full text-left p-3 rounded-xl hover:bg-navy-800 border border-transparent text-gray-400 hover:text-white flex items-center gap-3 transition-all duration-200">
+                            <i data-lucide="users" class="w-5 h-5 text-accent-cyan"></i>
+                            <div class="text-xs">
+                                <div class="font-bold">기획 변경으로 인한 일정 압박</div>
+                                <span class="text-gray-400">#협업마인드 #중재력</span>
+                            </div>
+                        </button>
+
+                        <button onclick="selectScenario('opt')" id="btn-scenario-opt" class="scenario-btn w-full text-left p-3 rounded-xl hover:bg-navy-800 border border-transparent text-gray-400 hover:text-white flex items-center gap-3 transition-all duration-200">
+                            <i data-lucide="gauge" class="w-5 h-5 text-accent-emerald"></i>
+                            <div class="text-xs">
+                                <div class="font-bold">대규모 데이터 처리 최적화</div>
+                                <span class="text-gray-400">#효율성 #꼼꼼함</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Console output window (Right col) -->
+                    <div class="md:col-span-7 p-6 flex flex-col justify-between bg-navy-950 relative min-h-[250px]">
+                        <!-- Dynamic output display -->
+                        <div id="console-output" class="space-y-4">
+                            <!-- Bug Scenario Content (Initial State) -->
+                            <div class="scenario-content space-y-3" id="content-bug">
+                                <div class="text-red-400 flex items-center gap-2">
+                                    <i data-lucide="terminal-square" class="w-4 h-4"></i>
+                                    <span>[CRITICAL] Stack Overflow detected on Level Load</span>
+                                </div>
+                                <p class="text-gray-400 leading-relaxed text-xs sm:text-sm">
+                                    "특정 레벨이 로드될 때 드물게 프로그램이 급사합니다. 다른 분반원들은 임시 캐싱 코드로 우회하려 하지만, 근본적인 설계 미스가 예상됩니다."
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-lg text-xs text-accent-blue border border-navy-800 leading-relaxed">
+                                    <strong>김동준의 Action:</strong><br/>
+                                    1. 단순히 눈앞의 예외처리를 넣지 않고, 호출 트리 역추적 진행.<br/>
+                                    2. 씬 전환 시 에셋 참조가 해제되지 않고 누적되는 참조 구조체 발견.<br/>
+                                    3. 가비지 컬렉터 부담을 줄이도록 스마트 포인터 명시적 해제 로직 구현.
+                                </div>
+                                <div class="text-accent-emerald text-xs flex items-center gap-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                    <span>해결 완료: 메모리 사용량 24% 감소 및 크래시 제거 완료.</span>
+                                </div>
+                            </div>
+
+                            <!-- Collaboration Scenario Content (Hidden initially) -->
+                            <div class="scenario-content space-y-3 hidden" id="content-collab">
+                                <div class="text-yellow-400 flex items-center gap-2">
+                                    <i data-lucide="users" class="w-4 h-4"></i>
+                                    <span>[COLLAB] 기획 확장 제안 및 개발 마감 압박</span>
+                                </div>
+                                <p class="text-gray-400 leading-relaxed text-xs sm:text-sm">
+                                    "프로젝트 제출 직전, 기획자가 독창적인 신규 시스템을 급하게 추가하고 싶어 합니다. 코드 변경량이 많아 일정이 대단히 촉박한 상황입니다."
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-lg text-xs text-accent-cyan border border-navy-800 leading-relaxed">
+                                    <strong>김동준의 Action:</strong><br/>
+                                    1. "절대 불가능하다"라는 거절 대신, 기획의 핵심 핵심 목표를 신속하게 파악.<br/>
+                                    2. 기존 구조를 파괴하지 않고 추가할 수 있는 컴포넌트(Component) 기반 우회 설계 제안.<br/>
+                                    3. 안전한 타협점을 조율해 퀄리티 유지와 기간 준수를 동시에 충족.
+                                </div>
+                                <div class="text-accent-emerald text-xs flex items-center gap-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                    <span>협업 완료: 목표 일정 내에 기능 출시 및 기획팀과의 깊은 신뢰 확보.</span>
+                                </div>
+                            </div>
+
+                            <!-- Optimization Scenario Content (Hidden initially) -->
+                            <div class="scenario-content space-y-3 hidden" id="content-opt">
+                                <div class="text-accent-cyan flex items-center gap-2">
+                                    <i data-lucide="gauge" class="w-4 h-4"></i>
+                                    <span>[PERF] 10,000+ 개체 렌더링 시 프레임 드랍</span>
+                                </div>
+                                <p class="text-gray-400 leading-relaxed text-xs sm:text-sm">
+                                    "수많은 유닛이 한 화면에 나타날 때 프레임이 15fps까지 떨어집니다. 당장의 프로젝트 구동에는 지장이 미미하나 대용량 지원을 목표로 합니다."
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-lg text-xs text-accent-emerald border border-navy-800 leading-relaxed">
+                                    <strong>김동준의 Action:</strong><br/>
+                                    1. 프로파일링 툴(Profiler)을 장착하여 매 프레임 발생하는 불필요한 연산 가시화.<br/>
+                                    2. 캐싱 로직이 매핑되지 않는 정렬 루틴(Sort)을 발견하여 인덱싱 구조로 치환.<br/>
+                                    3. 불필요하게 갱신되는 UI 위젯 처리를 이벤트 기반으로 수정하여 CPU 자원 확보.
+                                </div>
+                                <div class="text-accent-emerald text-xs flex items-center gap-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                    <span>최적화 완료: 평균 프레임 60fps 이상 안정적 고정 성공.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer indicator inside right console -->
+                        <div class="mt-6 pt-4 border-t border-navy-800 flex justify-between items-center text-[11px] text-gray-500">
+                            <span>KIM DONG JUN PORTFOLIO SYSTEM v1.0</span>
+                            <span class="animate-pulse flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-accent-blue rounded-full"></span> Ready for Analysis
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Collaboration Section (협업/동료관 중심 스토리) -->
+    <section id="projects" class="py-24 bg-navy-950 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// COLLABORATION & EXPERIENCE</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-white">협업 성과 & 프로젝트 이력</h2>
+                <p class="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
+                    함께 일할 때 가장 진가가 발휘되는 김동준의 주요 협업 경험과 결과들입니다.
+                </p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Project Card 1: Main Flagship Project -->
+                <div class="bg-navy-900 border border-navy-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12">
+                    <!-- Project Graphic/Teaser Area (Left) -->
+                    <div class="lg:col-span-5 bg-navy-950 p-8 flex flex-col justify-between border-r border-navy-800 relative">
+                        <div class="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
+                        <div class="z-10">
+                            <span class="text-xs font-mono text-accent-blue uppercase tracking-wider block mb-2">Flagship Project</span>
+                            <h3 class="text-2xl font-bold text-white mb-2">Project: World Builder</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
+                                수천 명의 유저가 한 서버에 동시 접속하여 실시간 동기화 및 쾌적한 상호작용을 경험할 수 있는 멀티플레이 월드 샌드박스입니다.
+                            </p>
+                        </div>
+
+                        <!-- Technical Stack tags on the card -->
+                        <div class="z-10 mt-8">
+                            <div class="text-xs font-mono text-gray-500 mb-2">Tech Stack Used</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-navy-800 text-gray-300 px-2.5 py-1 rounded border border-navy-700/60 font-mono">C#</span>
+                                <span class="text-xs bg-navy-800 text-gray-300 px-2.5 py-1 rounded border border-navy-700/60 font-mono">Unity 3D</span>
+                                <span class="text-xs bg-navy-800 text-gray-300 px-2.5 py-1 rounded border border-navy-700/60 font-mono">Mirror Net</span>
+                                <span class="text-xs bg-navy-800 text-gray-300 px-2.5 py-1 rounded border border-navy-700/60 font-mono">Git LFS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Collaboration Narrative (Right) -->
+                    <div class="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <!-- Story highlight 1 -->
+                            <div>
+                                <h4 class="text-sm font-bold text-accent-blue flex items-center gap-2 mb-2">
+                                    <span class="w-1.5 h-1.5 bg-accent-blue rounded-full"></span>
+                                    나의 역할: 동기화 정밀화 및 모듈화 기여
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                    동적 오브젝트 스폰 및 좌표 동기화 시 발생하는 무거운 지연 현상을 완화하기 위해, 빈번히 통신되는 정크 패킷들을 일괄 직렬화하고 압축하는 네트워크 버퍼 관리 모듈을 독립적으로 개발하였습니다.
+                                </p>
+                            </div>
+
+                            <!-- Story highlight 2 (Collaboration) -->
+                            <div>
+                                <h4 class="text-sm font-bold text-accent-cyan flex items-center gap-2 mb-2">
+                                    <span class="w-1.5 h-1.5 bg-accent-cyan rounded-full"></span>
+                                    동료들의 피드백: "설계 덕분에 버그를 찾기 편했습니다."
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                    기획팀에서 맵 에디팅 기능을 동적으로 수시 변경할 것을 우려해, 데이터 기반 설계 방식을 도입하여 에디터 테이블 로드 구조로 시스템을 정교하게 구축했습니다. 그 결과 버그 발생 시 빠른 트래킹이 가능해져 전체 개발 공수를 대폭 아꼈습니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Mini achievements list -->
+                        <div class="mt-8 pt-6 border-t border-navy-800/80 grid grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-xl font-bold text-white">40%</div>
+                                <div class="text-xs text-gray-400">네트워크 패킷 트래픽 절감</div>
+                            </div>
+                            <div>
+                                <div class="text-xl font-bold text-white">0건</div>
+                                <div class="text-xs text-gray-400">데이터 오동작 크래시 보고</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collaborative Character Highlight -->
+                <div class="p-8 bg-navy-900 border border-navy-800 rounded-2xl">
+                    <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                        <i data-lucide="award" class="text-accent-blue w-6 h-6"></i>
+                        동료들이 평가한 김동준의 협업 시너지
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm">
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                            <i data-lucide="quote" class="absolute right-4 top-4 text-navy-800 w-8 h-8 pointer-events-none"></i>
+                            <p class="text-gray-300 leading-relaxed italic mb-4">
+                                "김동준 님과 일하면 코드를 열어볼 때 스트레스가 전혀 없습니다. 클래스 명칭부터 구조까지 모두를 배려하며 설계해 주어 든든한 등대 같은 분입니다."
+                            </p>
+                            <span class="text-accent-blue font-bold text-xs">- 같은 분반 개발 동료 -</span>
+                        </div>
+
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                            <i data-lucide="quote" class="absolute right-4 top-4 text-navy-800 w-8 h-8 pointer-events-none"></i>
+                            <p class="text-gray-300 leading-relaxed italic mb-4">
+                                "기획이 까다로워 구현이 불가능할까 걱정했는데, 김동준 개발자는 귀찮아하지 않고 구현 가능한 안전한 우회안들을 먼저 제시해주었습니다."
+                            </p>
+                            <span class="text-accent-cyan font-bold text-xs">- 기획 파트너 -</span>
+                        </div>
+
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                            <i data-lucide="quote" class="absolute right-4 top-4 text-navy-800 w-8 h-8 pointer-events-none"></i>
+                            <p class="text-gray-300 leading-relaxed italic mb-4">
+                                "이 정도로 사소한 성능 병목까지 집요하게 물고 늘어져 최적화해 주는 팀원은 처음이었습니다. 덕분에 최종 배포 때 마음이 정말 편안했습니다."
+                            </p>
+                            <span class="text-accent-emerald font-bold text-xs">- 프로젝트 리드 -</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Growth & Future Commitment Section (성장 다짐) -->
+    <section id="growth" class="py-24 bg-navy-900/40 border-t border-navy-850 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// FUTURE ROADMAP</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">더 견고하고 유기적인 미래를 그립니다</h2>
+            </div>
+
+            <!-- Roadmap Flow Card -->
+            <div class="bg-navy-950 border border-navy-800 rounded-2xl p-8 space-y-8 relative">
+                <!-- Connection Line -->
+                <div class="absolute left-10 top-24 bottom-16 w-[2px] bg-navy-800 hidden sm:block"></div>
+
+                <!-- Step 1 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                    <div class="w-10 h-10 rounded-full bg-accent-blue/10 border border-accent-blue/30 flex items-center justify-center text-accent-blue font-bold z-10 shrink-0">
+                        1
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-lg font-bold text-white">완벽한 데이터 무결성과 안전성 추구</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            매 순간 변화무쌍한 게임 환경 속에서 단 한 건의 유저 이탈이나 치명적 버그도 허용하지 않도록 가독성 높은 모듈을 지탱하겠습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                    <div class="w-10 h-10 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan font-bold z-10 shrink-0">
+                        2
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-lg font-bold text-white">동료들과의 오픈 소통 허브 역할</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            독단적인 설계를 경계합니다. 늘 코드리뷰와 활발한 소통을 이끌고 팀 내 동료들의 개발 능률을 올려주는 톱니바퀴 역할을 자처하겠습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                    <div class="w-10 h-10 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center text-accent-emerald font-bold z-10 shrink-0">
+                        3
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-lg font-bold text-white">정기적인 지식 공유 및 회고 문화 형성</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            내가 맞닥뜨린 버그 트래킹 결과를 사내/팀내 위키에 정밀히 기록하여 다른 동료들이 동일한 삽질을 겪지 않게 돕는 동료가 되겠습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-b from-navy-950 to-navy-900 border-t border-navy-850 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">함께 더 단단하고 완성도 높은 월드를 만드실 분을 기다립니다</h2>
+            <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+                김동준의 단단한 설계와 집요한 디버깅 분석력이 더 궁금하시다면 언제든지 아래 연락처로 연락 주시길 부탁드립니다.
+            </p>
+
+            <!-- Grid with copy actions and social metrics -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-12">
+                <!-- Email Copy Block -->
+                <div class="bg-navy-900 border border-navy-800 rounded-xl p-5 flex flex-col justify-between items-center group">
+                    <div class="w-10 h-10 bg-accent-blue/10 rounded-lg flex items-center justify-center mb-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-accent-blue"></i>
+                    </div>
+                    <span class="text-xs text-gray-500 font-mono mb-1">이메일 주소</span>
+                    <span id="email-text" class="text-sm font-semibold text-white mb-4">jkfdgd1114@naver.com</span>
+                    <button onclick="copyToClipboard('email-text')" class="px-4 py-2 bg-navy-800 text-xs text-accent-blue font-bold rounded-lg border border-navy-700 hover:bg-accent-blue/15 transition w-full">
+                        이메일 주소 복사하기
+                    </button>
+                </div>
+
+                <!-- Discord Copy Block -->
+                <div class="bg-navy-900 border border-navy-800 rounded-xl p-5 flex flex-col justify-between items-center group">
+                    <div class="w-10 h-10 bg-accent-cyan/10 rounded-lg flex items-center justify-center mb-3">
+                        <i data-lucide="message-square" class="w-5 h-5 text-accent-cyan"></i>
+                    </div>
+                    <span class="text-xs text-gray-500 font-mono mb-1">mattermost ID</span>
+                    <span id="discord-text" class="text-sm font-semibold text-white mb-4">@jkfdgd1114</span>
+                    <button onclick="copyToClipboard('discord-text')" class="px-4 py-2 bg-navy-800 text-xs text-accent-cyan font-bold rounded-lg border border-navy-700 hover:bg-accent-cyan/15 transition w-full">
+                        mattermost ID 복사하기
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feedback Notification Box (Replaces alert) -->
+            <div id="toast-message" class="hidden max-w-xs mx-auto py-3 px-4 bg-navy-800 text-accent-emerald text-xs font-semibold rounded-lg border border-accent-emerald/30 shadow-lg mb-8 items-center justify-center gap-2">
+                <i data-lucide="check" class="w-4 h-4"></i>
+                <span id="toast-text">복사가 완료되었습니다.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-navy-950 py-12 border-t border-navy-800/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+            <!-- Brand Info -->
+            <div>
+                <div class="font-bold text-white text-base flex items-center justify-center sm:justify-start gap-2">
+                    <span class="text-accent-blue">&lt;</span>
+                    KIM DONG JUN
+                    <span class="text-accent-blue">/&gt;</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                    &copy; 2026 Kim Dong-jun. All rights reserved. Built with passion and structural stability.
+                </p>
+            </div>
+
+            <!-- Quick Jump menu -->
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-mono">
+                <a href="#about" class="hover:text-accent-blue transition">ABOUT</a>
+                <a href="#strengths" class="hover:text-accent-blue transition">VALUES</a>
+                <a href="#problem-solver" class="hover:text-accent-blue transition">SOLVER</a>
+                <a href="#projects" class="hover:text-accent-blue transition">EXPERIENCE</a>
+                <a href="#growth" class="hover:text-accent-blue transition">ROADMAP</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Navigation Drawer & Interactive Scenario script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.querySelector('#mobile-menu-btn i');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                // Change icon to close (X)
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                // Change icon back to menu hamburger
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // 2. Interactive Problem Solver Console Controller
+        function selectScenario(scenarioId) {
+            // Hide all scenario content panels
+            const contents = document.querySelectorAll('.scenario-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            // Show selected scenario content
+            const targetContent = document.getElementById(`content-${scenarioId}`);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            // Remove active button styling from all buttons
+            const buttons = document.querySelectorAll('.scenario-btn');
+            buttons.forEach(btn => {
+                btn.className = "scenario-btn w-full text-left p-3 rounded-xl hover:bg-navy-800 border border-transparent text-gray-400 hover:text-white flex items-center gap-3 transition-all duration-200";
+            });
+
+            // Set active class on target button
+            const activeBtn = document.getElementById(`btn-scenario-${scenarioId}`);
+            if (activeBtn) {
+                let accentColor = "blue";
+                if (scenarioId === "collab") accentColor = "cyan";
+                if (scenarioId === "opt") accentColor = "emerald";
+
+                activeBtn.className = `scenario-btn w-full text-left p-3 rounded-xl bg-accent-${accentColor}/10 border border-accent-${accentColor} text-white flex items-center gap-3 transition-all duration-200`;
+            }
+        }
+
+        // 3. Safe Clipboard copy alternative with custom popup (No standard alert)
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            
+            // Create a temporary hidden input to run execCommand
+            const tempInput = document.createElement("input");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(`성공적으로 복사되었습니다: ${textToCopy}`);
+                } else {
+                    showToast("복사에 실패했습니다. 수동으로 복사해주세요.");
+                }
+            } catch (err) {
+                showToast("오류가 발생했습니다. 수동으로 복사해주세요.");
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        // Custom Toast system
+        function showToast(message) {
+            const toast = document.getElementById('toast-message');
+            const text = document.getElementById('toast-text');
+            
+            text.innerText = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
