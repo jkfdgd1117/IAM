@@ -65,6 +65,48 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #3B82F6;
         }
+
+        /* --- CSS Animations --- */
+        
+        /* 1. Hero 진입 시 순차적 페이드인 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* 2. 스크롤 인터랙션 반응형 페이드인 (Reveal on Scroll) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 카드 컴포넌트의 미세 엇박자 딜레이 */
+        .reveal-delay-100 { transition-delay: 100ms; }
+        .reveal-delay-200 { transition-delay: 200ms; }
+        .reveal-delay-300 { transition-delay: 300ms; }
     </style>
 </head>
 <body class="bg-navy-950 text-gray-100 overflow-x-hidden">
@@ -117,12 +159,12 @@
     <!-- Hero Section (인트로) -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center pt-16 bg-grid overflow-hidden">
         <!-- Background Lighting Efffects -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none animate-pulse" style="animation-duration: 8s;"></div>
 
         <div class="max-w-5xl mx-auto px-4 text-center z-10">
             <!-- Small Status Badge -->
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-navy-800 border border-navy-700 rounded-full text-xs text-accent-blue font-mono mb-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-navy-800 border border-navy-700 rounded-full text-xs text-accent-blue font-mono mb-6 animate-fade-in-up">
                 <span class="flex h-2.5 w-2.5 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-blue opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-blue"></span>
@@ -131,7 +173,7 @@
             </div>
 
             <!-- Main Catchphrase -->
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight sm:leading-snug mb-6">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight sm:leading-snug mb-6 animate-fade-in-up delay-100">
                 수많은 플레이어가 뛰어놀 거대한 세계,<br class="hidden sm:inline" />
                 그 <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan">견고한 한 축</span>을 설계하는 개발자<br />
                 <span class="text-white"><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan">김동준<span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-cyan"></span>
@@ -139,13 +181,13 @@
             </h1>
 
             <!-- Subtext: Target audience focus (trust and reliability) -->
-            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200">
                 화려함에 매몰되기보다 시스템의 안전성과 무결함을 우선합니다.<br />
                 정교하게 맞물리는 톱니바퀴처럼, 팀의 프로젝트를 든든하게 받치는 뼈대를 설계하겠습니다.
             </p>
 
             <!-- Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
                 <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-accent-blue hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300 flex items-center justify-center gap-2">
                     김동준 알아보기
                     <i data-lucide="arrow-down-right" class="w-4.5 h-4.5"></i>
@@ -157,7 +199,7 @@
             </div>
 
             <!-- Micro Metrics/Status bar (Developer Concept) -->
-            <div class="mt-16 pt-8 border-t-8 border-x-8 border-navy-800/60 max-8w-xl mx-auto grid grid-cols-3 gap-4 text-center">
+            <div class="mt-16 pt-8 border-t-8 border-x-8 border-navy-800/60 max-8w-xl mx-auto grid grid-cols-3 gap-4 text-center animate-fade-in-up delay-400">
                 <div>
                     <div class="text-sm font-mono text-gray-500">Core Engine</div>
                     <div class="text-sm font-semibold text-gray-300 mt-1">C++ / Unity</div>
@@ -177,7 +219,7 @@
     <!-- Profile & Philosophy Section (개발 철학 및 스토리텔링) -->
     <section id="about" class="py-24 border-t border-navy-850 bg-navy-900/40 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal">
                 <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// INTRODUCTION</span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">동료들과 견고함을 빚어내는 설계자</h2>
                 <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto mt-2">
@@ -186,7 +228,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                 <!-- Profile Image & Quick Specs (4 Columns) -->
-                <div class="md:col-span-5 flex flex-col items-center">
+                <div class="md:col-span-5 flex flex-col items-center reveal">
                     <div class="relative group">
                         <!-- Neon backdrop frame -->
                         <div class="absolute -inset-1 bg-gradient-to-r from-accent-blue to-accent-cyan rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
@@ -222,7 +264,7 @@
 
                 <!-- Storytelling Paragraphs (7 Columns) -->
                 <div class="md:col-span-7 space-y-6 text-gray-300 text-sm sm:text-base leading-relaxed">
-                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl">
+                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl reveal reveal-delay-100">
                         <h4 class="font-bold text-white text-lg mb-3 flex items-center gap-2">
                             <i data-lucide="heart" class="w-5 h-5 text-accent-blue"></i>
                             협업을 위해 코드를 정돈합니다.
@@ -232,7 +274,7 @@
                         </p>
                     </div>
 
-                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl">
+                    <div class="p-6 bg-navy-800/40 border border-navy-800 rounded-xl reveal reveal-delay-200">
                         <h4 class="font-bold text-white text-lg mb-3 flex items-center gap-2">
                             <i data-lucide="refresh-cw" class="w-5 h-5 text-accent-cyan"></i>
                             지속 가능한 성장을 위해 기록합니다.
@@ -249,7 +291,7 @@
     <!-- Core Strengths Section (강점 카드) -->
     <section id="strengths" class="py-24 bg-navy-950 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal">
                 <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// CORE VALUES</span>
                 <h2 class="text-2xl sm:text-4xl font-bold text-white">팀이 가장 필요로 하는 무기</h2>
                 <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto mt-2">
@@ -259,7 +301,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Strength 1 -->
-                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group reveal">
                     <div>
                         <div class="w-12 h-12 bg-accent-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-blue/20 transition-all">
                             <i data-lucide="brain" class="w-6 h-6 text-accent-blue"></i>
@@ -275,7 +317,7 @@
                 </div>
 
                 <!-- Strength 2 -->
-                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group reveal reveal-delay-100">
                     <div>
                         <div class="w-12 h-12 bg-accent-cyan/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-cyan/20 transition-all">
                             <i data-lucide="target" class="w-6 h-6 text-accent-cyan"></i>
@@ -291,7 +333,7 @@
                 </div>
 
                 <!-- Strength 3 -->
-                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group">
+                <div class="bg-navy-900 border border-navy-800 hover:border-accent-blue/30 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group reveal reveal-delay-200">
                     <div>
                         <div class="w-12 h-12 bg-accent-emerald/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-emerald/20 transition-all">
                             <i data-lucide="zap" class="w-6 h-6 text-accent-emerald"></i>
@@ -312,7 +354,7 @@
     <!-- Interactive Section: Problem Solver Console (김동준 디버깅 시뮬레이터) -->
     <section id="problem-solver" class="py-24 bg-navy-900/50 border-y border-navy-850">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 reveal">
                 <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// INTERACTIVE CONSOLE</span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">김동준의 문제 해결방식 시뮬레이터</h2>
                 <p class="text-gray-400 text-sm mt-2 max-w-3xl mx-auto">
@@ -321,7 +363,7 @@
             </div>
 
             <!-- Simulator Console Window -->
-            <div class="bg-navy-950 rounded-2xl border border-navy-800 shadow-2xl overflow-hidden font-mono text-sm">
+            <div class="bg-navy-950 rounded-2xl border border-navy-800 shadow-2xl overflow-hidden font-mono text-sm reveal">
                 <!-- Header of the Console -->
                 <div class="bg-navy-900/80 px-4 py-3 flex items-center justify-between border-b border-navy-800">
                     <div class="flex items-center gap-2">
@@ -448,7 +490,7 @@
     <!-- Projects & Collaboration Section (협업/동료관 중심 스토리) -->
     <section id="projects" class="py-24 bg-navy-950 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal">
                 <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// COLLABORATION & EXPERIENCE</span>
                 <h2 class="text-2xl sm:text-4xl font-bold text-white">협업 성과 & 프로젝트 이력</h2>
                 <p class="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
@@ -458,7 +500,7 @@
 
             <div class="space-y-12">
                 <!-- Project Card 1: Main Flagship Project -->
-                <div class="bg-navy-900 border border-navy-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12">
+                <div class="bg-navy-900 border border-navy-800 rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 reveal">
                     <!-- Project Graphic/Teaser Area (Left) -->
                     <div class="lg:col-span-5 bg-navy-950 p-8 flex flex-col justify-between border-r border-navy-800 relative">
                         <div class="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
@@ -523,14 +565,14 @@
                 </div>
 
                 <!-- Collaborative Character Highlight -->
-                <div class="p-8 bg-navy-900 border border-navy-800 rounded-2xl">
+                <div class="p-8 bg-navy-900 border border-navy-800 rounded-2xl reveal">
                     <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
                         <i data-lucide="award" class="text-accent-blue w-6 h-6"></i>
                         동료들이 평가한 김동준의 협업 시너지
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm">
-                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative reveal reveal-delay-100">
                             <i data-lucide="quote" class="absolute right-4 bottom-4 text-navy-800/60 w-8 h-8 pointer-events-none"></i>
                             <p class="text-gray-300 leading-relaxed italic mb-4">
                                 "김동준 님과 일하면 코드를 열어볼 때 스트레스가 전혀 없습니다. 클래스 명칭부터 구조까지 모두를 배려하며 설계해 주어 든든한 등대 같은 분입니다."
@@ -538,7 +580,7 @@
                             <span class="text-accent-blue font-bold text-xs">- 같은 분반 개발 동료 -</span>
                         </div>
 
-                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative reveal reveal-delay-200">
                             <i data-lucide="quote" class="absolute right-4 bottom-4 text-navy-800/60 w-8 h-8 pointer-events-none"></i>
                             <p class="text-gray-300 leading-relaxed italic mb-4">
                                 "기획이 까다로워 구현이 불가능할까 걱정했는데, 김동준 개발자는 귀찮아하지 않고 구현 가능한 안전한 우회안들을 먼저 제시해주었습니다."
@@ -546,7 +588,7 @@
                             <span class="text-accent-cyan font-bold text-xs">- 기획 파트너 -</span>
                         </div>
 
-                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative">
+                        <div class="bg-navy-950 p-5 rounded-xl border border-navy-800 relative reveal reveal-delay-300">
                             <i data-lucide="quote" class="absolute right-4 bottom-4 text-navy-800/60 w-8 h-8 pointer-events-none"></i>
                             <p class="text-gray-300 leading-relaxed italic mb-4">
                                 "이 정도로 사소한 성능 병목까지 집요하게 물고 늘어져 최적화해 주는 팀원은 처음이었습니다. 덕분에 최종 배포 때 마음이 정말 편안했습니다."
@@ -562,7 +604,7 @@
     <!-- Growth & Future Commitment Section (성장 다짐) -->
     <section id="growth" class="py-24 bg-navy-900/40 border-t border-navy-850 relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 reveal">
                 <span class="text-xs font-mono text-accent-blue uppercase tracking-widest block mb-2">// FUTURE ROADMAP</span>
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">더 견고하고 유기적인 미래를 그립니다</h2>
                 <p class="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
@@ -570,10 +612,10 @@
             </div>
 
             <!-- Roadmap Flow Card -->
-            <div class="bg-navy-950 border border-navy-800 rounded-2xl p-8 space-y-10 relative">
+            <div class="bg-navy-950 border border-navy-800 rounded-2xl p-8 space-y-10 relative overflow-hidden reveal">
                 
                 <!-- Step 1 -->
-                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative reveal reveal-delay-100">
                     <div class="w-10 h-10 rounded-full bg-accent-blue/10 border border-accent-blue/30 flex items-center justify-center text-accent-blue font-bold z-10 shrink-0">
                         1
                     </div>
@@ -586,7 +628,7 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative reveal reveal-delay-200">
                     <div class="w-10 h-10 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan font-bold z-10 shrink-0">
                         2
                     </div>
@@ -599,7 +641,7 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="flex flex-col sm:flex-row items-start gap-6 relative">
+                <div class="flex flex-col sm:flex-row items-start gap-6 relative reveal reveal-delay-300">
                     <div class="w-10 h-10 rounded-full bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center text-accent-emerald font-bold z-10 shrink-0">
                         3
                     </div>
@@ -618,12 +660,12 @@
     <section id="contact" class="py-24 bg-gradient-to-b from-navy-950 to-navy-900 border-t border-navy-850 relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">함께 더 단단하고 완성도 높은 게임을 만드실 분을 기다립니다</h2>
-            <p class="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto mb-10 leading-relaxed">
+            <p class="text-gray-400 text-sm sm:text-base max-w-3xl mx-auto mb-10 leading-relaxed reveal">
                 김동준의 단단한 설계와 집요한 분석력이 더 궁금하시다면 언제든지 아래 연락처로 연락 주시길 부탁드립니다.
             </p>
 
             <!-- Grid with copy actions and social metrics -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-12 reveal">
                 <!-- Email Copy Block -->
                 <div class="bg-navy-900 border border-navy-800 rounded-xl p-5 flex flex-col justify-between items-center group">
                     <div class="w-10 h-10 bg-accent-blue/10 rounded-lg flex items-center justify-center mb-3">
@@ -786,6 +828,27 @@
                 toast.classList.remove('flex');
             }, 3000);
         }
+
+        // 4. Scroll Reveal Intersection Observer Implementation
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // 한번 화면에 등장하고 나면 더 이상 관찰하지 않도록 성능 최적화(옵션)
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null, // viewport 기준
+                threshold: 0.1, // 타겟 엘리먼트가 10% 정도 들어왔을 때 트리거
+                rootMargin: '0px 0px -40px 0px' // 하단에서 살짝 밀당하여 한층 부드러운 출현 연출
+            });
+
+            reveals.forEach(el => revealObserver.observe(el));
+        });
     </script>
 </body>
 </html>
